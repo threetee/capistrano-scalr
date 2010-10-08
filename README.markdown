@@ -15,13 +15,23 @@ After gem installation, add the following to your deploy.rb:
     set :gateway_type, "<centos|ubuntu>"
     require 'capistrano-scalr'
 
-The above will automatically connect to your scalr farm using the gateway you specify (the primary database server is a logical choice, since it usually stays pretty static), enumerate the instances in your farm, then create the following roles with the scalr hosts contained within:
+The above will automatically connect to your scalr farm using the gateway you specify (the primary database server is a logical choice, since it usually stays pretty static), enumerate the instances in your farm, and populate the `scalr_hosts` array with the instances. You can then define roles based on `scalr_hosts`:
 
-- lb
-- web
-- app
-- db
-- memcached
+    role :lb, :no_release => true do
+      scalr_hosts['loadbalancer']
+    end
+    role :web, :no_release => true do 
+      scalr_hosts['www'] 
+    end 
+    role :app do 
+     scalr_hosts['app'] 
+    end 
+    role :db, :no_release => true do 
+     scalr_hosts['mysql'] 
+    end
+    role :memcached, :no_release => true do 
+      scalr_hosts['memcached'] 
+    end
 
 I also recommend that you use ssh-agent on your development workstation, enable agent forwarding on your scalr hosts, and set this in deploy.rb:
 
