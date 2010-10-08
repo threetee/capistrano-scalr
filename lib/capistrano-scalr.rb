@@ -60,22 +60,23 @@ Capistrano::Configuration.instance(:must_exist).load do
   end 
 
   scalr.enum
-
-  role :lb, :no_release => true do
-    scalr_hosts['loadbalancer']
-  end
-  role :web, :no_release => true do 
-    scalr_hosts['www'] 
-  end 
-  role :app do 
-    scalr_hosts['app'] 
-  end 
-  role :db, :no_release => true  do 
-    scalr_hosts['mysql'] 
-  end 
-  role :memcached, :no_release => true do 
-    scalr_hosts['memcached'] 
-  end
   ###
   
+  # Gem shouldn't set the roles
+  # role :lb, :no_release => true do
+  #   scalr_hosts['loadbalancer']
+  # end
+  # role :web, :no_release => true do 
+  #   scalr_hosts['www'] 
+  # end 
+  # role :app do 
+  #   scalr_hosts['app'] 
+  # end 
+  # role :db, :no_release => true  do 
+  #   scalr_hosts['mysql'] 
+  # end 
+  # role :memcached, :no_release => true do 
+  #   scalr_hosts['memcached'] 
+  # end
+
 end
